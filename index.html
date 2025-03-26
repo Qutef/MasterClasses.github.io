@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Видео Уроки</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Видео Уроки</h1>
+    </header>
+    <main>
+        <section id="video-player">
+            <video id="main-video" controls>
+                <source src="videos/video1.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </section>
+        <section id="video-list">
+            <h2>Список уроков</h2>
+            <ul id="videos">
+                <li onclick="changeVideo('videos/video1.mp4')">Урок 1</li>
+                <li onclick="changeVideo('videos/video2.mp4')">Урок 2</li>
+                <li onclick="changeVideo('videos/video3.mp4')">Урок 3</li>
+            </ul>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
