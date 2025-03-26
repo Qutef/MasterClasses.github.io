@@ -3,49 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мастер-классы</title>
+    <title>Видео-уроки</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
         Видео-уроки
         <button id="theme-toggle">🌙</button>
     </header>
-    <header>
-        <h1>Выберите направление</h1>
-    </header>
-    <main>
-        <!-- Раздел выбора категории -->
-        <section id="categories">
-            <button onclick="loadCategory('photography')">Фотография</button>
-            <button onclick="loadCategory('cooking')">Кулинария</button>
-        </section>
 
-        <!-- Раздел списка уроков -->
-        <section id="lesson-list"></section>
+    <div id="categories">
+        <button onclick="loadCategory('cooking')">Кулинария</button>
+        <button onclick="loadCategory('art')">Рисование</button>
+    </div>
 
-        <!-- Раздел с деталями урока -->
-        <section id="lesson-details" style="display:none;">
-            <h2 id="lesson-title"></h2>
-            
-            <h3>Оборудование</h3>
-            <ul id="equipment-list"></ul>
+    <div id="lesson-list"></div>
 
-            <video id="lesson-video" controls preload="metadata"></video>
-
+    <div id="lesson-details">
+        <h2 id="lesson-title"></h2>
+        <video id="lesson-video" controls></video>
         
-            <h3>Шаги:</h3>
-            <ol id="lesson-steps"></ol>
-            <ol id="lesson.video"></h4>
-
-            <button id="hide-button" onclick="hideLesson()">Скрыть урок</button>
-            <button id="mark-button" onclick="markAsCompleted()">Отметить как пройденное</button>
-        </section>
-
-        <!-- Прогресс пользователя -->
         <h3>Прогресс:</h3>
-        <div id="progress"></div>
-    </main>
+        <div id="progress-bar"><div id="progress-bar-inner"></div></div>
+
+        <h3>Шаги урока:</h3>
+        <ol id="lesson-steps"></ol>
+
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
