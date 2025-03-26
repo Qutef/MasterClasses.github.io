@@ -82,7 +82,7 @@ document.getElementById("theme-toggle").addEventListener("click", function() {
 });
 
 // Прогресс-бар в уроке
-function updateProgress(currentStep, totalSteps) {
+function updateProgresss(currentStep, totalSteps) {
     let progress = (currentStep / totalSteps) * 100;
     document.getElementById("progress-bar-inner").style.width = progress + "%";
 }
