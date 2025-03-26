@@ -110,7 +110,7 @@ function loadLesson(categoryId, lessonId) {
         stepsContainer.appendChild(stepElement);
     });
 
-    updateProgress(0, lesson.steps.length);
+    updateProgresss(0, lessupdateProgressh);
 }
 
 window.onload = async () => {
