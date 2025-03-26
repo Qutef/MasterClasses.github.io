@@ -70,6 +70,10 @@ function markAsCompleted() {
     updateButtonState(title);
 }
 
+function hideLesson() {
+    document.getElementById("lesson-details").style.display = "none";
+}
+
 function updateButtonState(title) {
     const button = document.getElementById("mark-button");
     
