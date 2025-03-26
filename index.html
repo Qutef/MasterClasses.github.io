@@ -11,20 +11,32 @@
         <h1>Выберите направление</h1>
     </header>
     <main>
+        <!-- Раздел выбора категории -->
         <section id="categories">
             <button onclick="loadCategory('photography')">Фотография</button>
             <button onclick="loadCategory('cooking')">Кулинария</button>
         </section>
+
+        <!-- Раздел списка уроков -->
         <section id="lesson-list"></section>
+
+        <!-- Раздел с деталями урока -->
         <section id="lesson-details" style="display:none;">
             <h2 id="lesson-title"></h2>
+            
             <h3>Оборудование</h3>
             <ul id="equipment-list"></ul>
+
             <video id="lesson-video" controls></video>
+
             <h3>Шаги:</h3>
             <ol id="lesson-steps"></ol>
-            <button onclick="markAsCompleted()">Отметить как пройденное</button>
+
+            <!-- Кнопка для отметки пройденного урока -->
+            <button id="mark-button" onclick="markAsCompleted()">Отметить как пройденное</button>
         </section>
+
+        <!-- Прогресс пользователя -->
         <h3>Прогресс:</h3>
         <div id="progress"></div>
     </main>
