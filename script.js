@@ -51,17 +51,10 @@ function loadLesson(categoryId, lessonId) {
         let li = document.createElement("li");
         li.textContent = step;
         stepList.appendChild(li);
-        updateProgresss(index + 1, lesson.steps.length);
     });
 
     updateButtonState(lesson.title);
     document.getElementById("lesson-details").style.display = "block";
-    updateProgresss(0, lesson.steps.length);
-}
-
-function updateProgresss(currentStep, totalSteps) {
-    let progress = (currentStep / totalSteps) * 100;
-    document.getElementById("progress-bar-inner").style.width = progress + "%";
 }
 
 function markAsCompleted() {
