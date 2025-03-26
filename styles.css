@@ -23,7 +23,8 @@ body {
 }
 
 .dark-mode button {
-    background: #ff9800;
+    background: linear-gradient(90deg, #ff9800, #ff8000);
+        
 }
 
 /* Шапка */
@@ -109,7 +110,6 @@ button:hover {
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: left;
-    height: 25px;
 }
 
 #lesson-video {
