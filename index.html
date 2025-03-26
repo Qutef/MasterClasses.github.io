@@ -3,28 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Видео Уроки</title>
+    <title>Мастер-классы</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Видео Уроки</h1>
+        <h1>Выберите направление</h1>
     </header>
     <main>
-        <section id="video-player">
-            <video id="main-video" controls>
-                <source src="videos/video1.mp4" type="video/mp4">
-                Ваш браузер не поддерживает видео.
-            </video>
+        <section id="categories">
+            <button onclick="loadCategory('photography')">Фотография</button>
+            <button onclick="loadCategory('cooking')">Кулинария</button>
         </section>
-        <section id="video-list">
-            <h2>Список уроков</h2>
-            <ul id="videos">
-                <li onclick="changeVideo('videos/video1.mp4')">Урок 1</li>
-                <li onclick="changeVideo('videos/video2.mp4')">Урок 2</li>
-                <li onclick="changeVideo('videos/video3.mp4')">Урок 3</li>
-            </ul>
+        <section id="lesson-list"></section>
+        <section id="lesson-details" style="display:none;">
+            <h2 id="lesson-title"></h2>
+            <h3>Оборудование</h3>
+            <ul id="equipment-list"></ul>
+            <video id="lesson-video" controls></video>
+            <h3>Шаги:</h3>
+            <ol id="lesson-steps"></ol>
+            <button onclick="markAsCompleted()">Отметить как пройденное</button>
         </section>
+        <h3>Прогресс:</h3>
+        <div id="progress"></div>
     </main>
     <script src="script.js"></script>
 </body>
