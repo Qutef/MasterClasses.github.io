@@ -105,7 +105,7 @@ function loadLesson(categoryId, lessonId) {
         let stepElement = document.createElement("li");
         stepElement.textContent = step;
         stepElement.onclick = function () {
-            updateProgress(index + 1, lesson.steps.length);
+            updateProgresss(index + 1, lesson.steps.length);
         };
         stepsContainer.appendChild(stepElement);
     });
