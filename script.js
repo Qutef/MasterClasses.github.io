@@ -107,6 +107,43 @@ function updateProgress() {
     });
 }
 
+// Переключение темы (светлая/темная)
+document.getElementById("theme-toggle").addEventListener("click", function() {
+    document.body.classList.toggle("dark-mode");
+});
+
+// Прогресс-бар в уроке
+function updateProgress(currentStep, totalSteps) {
+    let progress = (currentStep / totalSteps) * 100;
+    document.getElementById("progress-bar-inner").style.width = progress + "%";
+}
+
+// Функция загрузки урока с шагами
+function loadLesson(categoryId, lessonId) {
+    const category = coursesData.courses.find(c => c.id === categoryId);
+    const lesson = category.lessons.find(l => l.id === lessonId);
+
+    document.getElementById("lesson-title").textContent = lesson.title;
+    let videoElement = document.getElementById("lesson-video");
+
+    videoElement.src = lesson.video;
+    videoElement.load();
+
+    let stepsContainer = document.getElementById("lesson-steps");
+    stepsContainer.innerHTML = "";
+
+    lesson.steps.forEach((step, index) => {
+        let stepElement = document.createElement("li");
+        stepElement.textContent = step;
+        stepElement.onclick = function () {
+            updateProgress(index + 1, lesson.steps.length);
+        };
+        stepsContainer.appendChild(stepElement);
+    });
+
+    updateProgress(0, lesson.steps.length);
+}
+
 window.onload = async () => {
     await loadCourses();
     updateProgress();
