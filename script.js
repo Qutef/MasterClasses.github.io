@@ -75,6 +75,15 @@ function hideLesson() {
     document.getElementById("lesson-details").style.display = "none";
 }
 
+function preloadVideo(videoSrc) {
+    let video = document.createElement("video");
+    video.src = videoSrc;
+    video.preload = "auto";
+    document.body.appendChild(video);
+    video.style.display = "none"; 
+}
+
+
 function updateButtonState(title) {
     const button = document.getElementById("mark-button");
     
