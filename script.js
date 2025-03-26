@@ -56,14 +56,11 @@ function loadLesson(categoryId, lessonId) {
         let li = document.createElement("li");
         li.textContent = step;
         stepList.appendChild(li);
-        li.onclick = function () {
-            updateProgress(index + 1, lesson.steps.length);
     });
 
     updateButtonState(lesson.title);
     document.getElementById("lesson-details").style.display = "block";
 
-    updateProgress(0, lesson.steps.length);
 }
 
 function markAsCompleted() {
