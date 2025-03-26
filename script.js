@@ -89,59 +89,37 @@ function updateProgresss(currentStep, totalSteps) {
 
 // Функция загрузки урока с шагами
 function loadLesson(categoryId, lessonId) {
-    const category = coursesData.courses.find(c => c.id === categoryId); // Используем coursesData.courses
+    const category = coursesData.find(c => c.id === categoryId);
     const lesson = category.lessons.find(l => l.id === lessonId);
 
-    if (!lesson) {
-        console.error(`Урок с ID ${lessonId} не найден в категории ${categoryId}`);
-        alert("Урок не найден.");
-        return; // Прерываем выполнение функции, если урок не найден.
-    }
-
     document.getElementById("lesson-title").textContent = lesson.title;
-
-    let videoElement = document.getElementById("lesson-video");
-    videoElement.src = lesson.video;
-    videoElement.onerror = function() {
-        console.error(`Ошибка загрузки видео: ${lesson.video}`);
+    document.getElementById("lesson-video").src = lesson.video;
+    
+    let video = document.getElementById("lesson-video");
+    video.onerror = function() {
+        console.error(Ошибка загрузки видео: ${lesson.video});
         alert("Ошибка загрузки видео. Проверьте, что файл находится в папке /videos и имеет правильное имя.");
     };
-    videoElement.load(); // Загружаем видео после установки src
 
-    // Обновляем список оборудования
     const equipList = document.getElementById("equipment-list");
-    if (equipList) { // Проверяем, существует ли элемент
-        equipList.innerHTML = "";
-        lesson.equipment.forEach(item => {
-            let li = document.createElement("li");
-            li.textContent = item;
-            equipList.appendChild(li);
-        });
-    }
-
-    // Обновляем список шагов и добавляем обработчик клика
-    let stepsContainer = document.getElementById("lesson-steps");
-    stepsContainer.innerHTML = "";
-
-    lesson.steps.forEach((step, index) => {
-        let stepElement = document.createElement("li");
-        stepElement.textContent = step;
-        stepElement.onclick = function () {
-            updateProgress(index + 1, lesson.steps.length);
-        };
-        stepsContainer.appendChild(stepElement);
+    equipList.innerHTML = "";
+    lesson.equipment.forEach(item => {
+        let li = document.createElement("li");
+        li.textContent = item;
+        equipList.appendChild(li);
     });
 
-    updateProgress(0, lesson.steps.length); // Начальное значение прогресса
+    const stepList = document.getElementById("lesson-steps");
+    stepList.innerHTML = "";
+    lesson.steps.forEach(step => {
+        let li = document.createElement("li");
+        li.textContent = step;
+        stepList.appendChild(li);
+    });
 
-    // Показываем детали урока
-    const lessonDetails = document.getElementById("lesson-details");
-    if (lessonDetails) { // Проверяем, существует ли элемент
-        lessonDetails.style.display = "block";
-    }
-
-    updateButtonState(lesson.title); // Обновляем состояние кнопки (предполагаем, что эта функция определена где-то еще)
-}
+    updateButtonState(lesson.title);
+    document.getElementById("lesson-details").style.display = "block";
+        }
 
 window.onload = async () => {
     await loadCourses();
