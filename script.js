@@ -24,11 +24,6 @@ function loadCategory(categoryId) {
     });
 }
 
-function updateBar(currentStep, totalSteps) {
-    let progress = (currentStep / totalSteps) * 100;
-    document.getElementById("progress-bar-inner").style.width = progress + "%";
-}
-
 function loadLesson(categoryId, lessonId) {
     const category = coursesData.find(c => c.id === categoryId);
     const lesson = category.lessons.find(l => l.id === lessonId);
