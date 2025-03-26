@@ -24,38 +24,7 @@ function loadCategory(categoryId) {
     });
 }
 
-function loadLesson(categoryId, lessonId) {
-    const category = coursesData.find(c => c.id === categoryId);
-    const lesson = category.lessons.find(l => l.id === lessonId);
 
-    document.getElementById("lesson-title").textContent = lesson.title;
-    document.getElementById("lesson-video").src = lesson.video;
-    
-    let video = document.getElementById("lesson-video");
-    video.onerror = function() {
-        console.error(`Ошибка загрузки видео: ${lesson.video}`);
-        alert("Ошибка загрузки видео. Проверьте, что файл находится в папке /videos и имеет правильное имя.");
-    };
-
-    const equipList = document.getElementById("equipment-list");
-    equipList.innerHTML = "";
-    lesson.equipment.forEach(item => {
-        let li = document.createElement("li");
-        li.textContent = item;
-        equipList.appendChild(li);
-    });
-
-    const stepList = document.getElementById("lesson-steps");
-    stepList.innerHTML = "";
-    lesson.steps.forEach(step => {
-        let li = document.createElement("li");
-        li.textContent = step;
-        stepList.appendChild(li);
-    });
-
-    updateButtonState(lesson.title);
-    document.getElementById("lesson-details").style.display = "block";
-}
 
 function markAsCompleted() {
     const title = document.getElementById("lesson-title").textContent;
