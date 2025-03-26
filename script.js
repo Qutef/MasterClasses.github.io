@@ -2,9 +2,12 @@ let coursesData = {};
 let userProgress = JSON.parse(localStorage.getItem("progress")) || {};
 
 async function loadCourses() {
-    const response = await fetch("courses.json");
-    const data = await response.json();
-    coursesData = data.courses;
+    try {
+        const response = await fetch("courses.json");
+        coursesData = (await response.json()).courses;
+    } catch (error) {
+        console.error("Ошибка загрузки курсов: ", error);
+    }
 }
 
 function loadCategory(categoryId) {
@@ -26,6 +29,12 @@ function loadLesson(categoryId, lessonId) {
 
     document.getElementById("lesson-title").textContent = lesson.title;
     document.getElementById("lesson-video").src = lesson.video;
+    
+    let video = document.getElementById("lesson-video");
+    video.onerror = function() {
+        console.error(`Ошибка загрузки видео: ${lesson.video}`);
+        alert("Ошибка загрузки видео. Проверьте, что файл находится в папке /videos и имеет правильное имя.");
+    };
 
     const equipList = document.getElementById("equipment-list");
     equipList.innerHTML = "";
@@ -43,19 +52,40 @@ function loadLesson(categoryId, lessonId) {
         stepList.appendChild(li);
     });
 
+    updateButtonState(lesson.title);
     document.getElementById("lesson-details").style.display = "block";
 }
 
 function markAsCompleted() {
     const title = document.getElementById("lesson-title").textContent;
-    userProgress[title] = true;
+    
+    if (userProgress[title]) {
+        delete userProgress[title];  // Убираем из списка пройденных
+    } else {
+        userProgress[title] = true;  // Добавляем в пройденные
+    }
+
     localStorage.setItem("progress", JSON.stringify(userProgress));
     updateProgress();
+    updateButtonState(title);
+}
+
+function updateButtonState(title) {
+    const button = document.getElementById("mark-button");
+    
+    if (!button) return;
+
+    if (userProgress[title]) {
+        button.textContent = "Убрать из пройденного";
+    } else {
+        button.textContent = "Отметить как пройденное";
+    }
 }
 
 function updateProgress() {
     const progressDiv = document.getElementById("progress");
     progressDiv.innerHTML = "";
+
     Object.keys(userProgress).forEach(title => {
         let p = document.createElement("p");
         p.textContent = `✔ ${title}`;
