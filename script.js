@@ -110,4 +110,5 @@ function updateProgress() {
 window.onload = async () => {
     await loadCourses();
     updateProgress();
+    preloadVideo(lesson.video);
 };
