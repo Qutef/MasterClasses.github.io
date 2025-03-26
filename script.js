@@ -11,7 +11,7 @@ async function loadCourses() {
 }
 
 function loadCategory(categoryId) {
-    hideLesson() 
+    hideLesson()
     const category = coursesData.find(c => c.id === categoryId);
     const lessonList = document.getElementById("lesson-list");
     lessonList.innerHTML = `<h2>${category.name}</h2>`;
@@ -24,7 +24,38 @@ function loadCategory(categoryId) {
     });
 }
 
+function loadLesson(categoryId, lessonId) {
+    const category = coursesData.find(c => c.id === categoryId);
+    const lesson = category.lessons.find(l => l.id === lessonId);
 
+    document.getElementById("lesson-title").textContent = lesson.title;
+    document.getElementById("lesson-video").src = lesson.video;
+    
+    let video = document.getElementById("lesson-video");
+    video.onerror = function() {
+        console.error(`Ошибка загрузки видео: ${lesson.video}`);
+        alert("Ошибка загрузки видео. Проверьте, что файл находится в папке /videos и имеет правильное имя.");
+    };
+
+    const equipList = document.getElementById("equipment-list");
+    equipList.innerHTML = "";
+    lesson.equipment.forEach(item => {
+        let li = document.createElement("li");
+        li.textContent = item;
+        equipList.appendChild(li);
+    });
+
+    const stepList = document.getElementById("lesson-steps");
+    stepList.innerHTML = "";
+    lesson.steps.forEach(step => {
+        let li = document.createElement("li");
+        li.textContent = step;
+        stepList.appendChild(li);
+    });
+
+    updateButtonState(lesson.title);
+    document.getElementById("lesson-details").style.display = "block";
+}
 
 function markAsCompleted() {
     const title = document.getElementById("lesson-title").textContent;
@@ -39,19 +70,6 @@ function markAsCompleted() {
     updateProgress();
     updateButtonState(title);
 }
-
-function hideLesson() {
-    document.getElementById("lesson-details").style.display = "none";
-}
-
-function preloadVideo(videoSrc) {
-    let video = document.createElement("video");
-    video.src = videoSrc;
-    video.preload = "auto";
-    document.body.appendChild(video);
-    video.style.display = "none"; 
-}
-
 
 function updateButtonState(title) {
     const button = document.getElementById("mark-button");
@@ -76,47 +94,19 @@ function updateProgress() {
     });
 }
 
-// Переключение темы (светлая/темная)
-document.getElementById("theme-toggle").addEventListener("click", function() {
-   // Переключение темы (светлая/темная)
-document.getElementById("theme-toggle").addEventListener("click", function() {
-    document.body.classList.toggle("dark-mode");
-});
-
-// Прогресс-бар в уроке
-function updateProgresss(currentStep, totalSteps) {
-    let progress = (currentStep / totalSteps) * 100;
-    document.getElementById("progress-bar-inner").style.width = progress + "%";
-}
-
-// Функция загрузки урока с шагами
-function loadLesson(categoryId, lessonId) {
-    const category = coursesData.courses.find(c => c.id === categoryId);
-    const lesson = category.lessons.find(l => l.id === lessonId);
-
-    document.getElementById("lesson-title").textContent = lesson.title;
-    let videoElement = document.getElementById("lesson-video");
-
-    videoElement.src = lesson.video;
-    videoElement.load();
-
-    let stepsContainer = document.getElementById("lesson-steps");
-    stepsContainer.innerHTML = "";
-
-    lesson.steps.forEach((step, index) => {
-        let stepElement = document.createElement("li");
-        stepElement.textContent = step;
-        stepElement.onclick = function () {
-            updateProgresss(index + 1, lesson.steps.length);
-        };
-        stepsContainer.appendChild(stepElement);
-    });
-
-    updateProgresss(0, lesson.steps.length);
+function preloadVideo(videoSrc) {
+    let video = document.createElement("video");
+    video.src = videoSrc;
+    video.preload = "auto";
+    document.body.appendChild(video);
+    video.style.display = "none"; 
 }
 
 
-    
+function hideLesson() {
+    document.getElementById("lesson-details").style.display = "none";
+}
+
 window.onload = async () => {
     await loadCourses();
     updateProgress();
