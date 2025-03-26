@@ -43,7 +43,6 @@ function loadLesson(categoryId, lessonId) {
         let li = document.createElement("li");
         li.textContent = item;
         equipList.appendChild(li);
-        updateProgresss(index + 1, lesson.steps.length);
     });
 
     const stepList = document.getElementById("lesson-steps");
@@ -52,6 +51,7 @@ function loadLesson(categoryId, lessonId) {
         let li = document.createElement("li");
         li.textContent = step;
         stepList.appendChild(li);
+        updateProgresss(index + 1, lesson.steps.length);
     });
 
     updateButtonState(lesson.title);
