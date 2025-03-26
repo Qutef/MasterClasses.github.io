@@ -13,6 +13,19 @@ body {
     color: #f4f4f4;
 }
 
+.dark-mode header {
+    background: #222;
+}
+
+.dark-mode #lesson-details {
+    background: #282828;
+    box-shadow: none;
+}
+
+.dark-mode button {
+    background: #ff9800;
+}
+
 /* Шапка */
 header {
     background: linear-gradient(90deg, #007bff, #6610f2);
