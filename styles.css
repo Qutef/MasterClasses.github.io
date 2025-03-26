@@ -1,33 +1,124 @@
+/* Общие стили */
 body {
     font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    margin: 0;
+    padding: 0;
     text-align: center;
-    background-color: #fff;
-    color: #222;
 }
 
+/* Заголовок */
+header {
+    background: #343a40;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+}
+
+/* Кнопки выбора категории */
 #categories button {
-    padding: 10px;
-    margin: 5px;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin: 10px;
     font-size: 18px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
+#categories button:hover {
+    background: #0056b3;
+}
+
+/* Контейнер уроков */
 #lesson-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin-top: 20px;
 }
 
-#lesson-list button {
-    display: block;
-    margin: 5px auto;
-    padding: 10px;
-    font-size: 16px;
+#lesson-list div {
+    background: white;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: 0.3s;
 }
 
+#lesson-list div:hover {
+    transform: scale(1.05);
+}
+
+/* Контейнер урока */
 #lesson-details {
-    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-video {
-    width: 80%;
-    border-radius: 10px;
+/* Видео */
+#lesson-video {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Оборудование и шаги */
+h3 {
+    color: #333;
+}
+
+ul, ol {
+    text-align: left;
+    padding-left: 20px;
+}
+
+li {
+    background: #f8f9fa;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Кнопки управления */
+button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #218838;
+}
+
+/* Кнопка скрытия */
+#hide-button {
+    background: #dc3545;
+}
+
+#hide-button:hover {
+    background: #c82333;
+}
+
+/* Прогресс пользователя */
+#progress {
+    margin-top: 20px;
+    padding: 10px;
+    background: #f1f3f5;
+    border-radius: 5px;
 }
