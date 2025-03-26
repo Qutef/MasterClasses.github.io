@@ -56,7 +56,7 @@ function loadLesson(categoryId, lessonId) {
         let li = document.createElement("li");
         li.textContent = step;
         stepList.appendChild(li);
-        updateBar(step, item)
+        
     });
 
    updateButtonState(lesson.title);
