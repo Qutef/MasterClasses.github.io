@@ -79,6 +79,20 @@ function completeLesson() {
     loadProgress();
 }
 
+// Удаляем урок из прогресса
+function removeLessonFromProgress() {
+    let progress = JSON.parse(localStorage.getItem("progress")) || [];
+    const lessonIndex = progress.indexOf(currentLesson.title);
+    
+    if (lessonIndex > -1) {
+        progress.splice(lessonIndex, 1);
+        localStorage.setItem("progress", JSON.stringify(progress));
+        alert(`Урок "${currentLesson.title}" удалён из пройденных.`);
+    }
+
+    loadProgress();
+}
+
 // Загружаем прогресс пользователя
 function loadProgress() {
     let progressList = document.getElementById("progress-list");
