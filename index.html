@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мастер-классы</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Мастер-классы</h1>
+        <button onclick="requestChannelLink()">📢 Получить ссылку на канал</button>
+    </header>
+
+    <main>
+        <section id="categories">
+            <h2>Выберите направление</h2>
+            <div id="category-list"></div>
+        </section>
+
+        <section id="lessons" class="hidden">
+            <h2>Выберите урок</h2>
+            <div id="lesson-list"></div>
+        </section>
+
+        <section id="lesson-detail" class="hidden">
+            <h2 id="lesson-title"></h2>
+            <p><strong>Необходимое оборудование:</strong> <span id="equipment"></span></p>
+            <video id="video-player" controls>
+                <source id="video-source" src="" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+            <div id="steps">
+                <h3>Шаги:</h3>
+                <p id="step-text"></p>
+                <button id="prev-step" onclick="prevStep()">⬅ Назад</button>
+                <button id="next-step" onclick="nextStep()">Вперёд ➡</button>
+            </div>
+            <button id="complete-lesson" onclick="completeLesson()">✅ Завершить урок</button>
+        </section>
+
+        <section id="progress">
+            <h2>Ваш прогресс</h2>
+            <ul id="progress-list"></ul>
+        </section>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
