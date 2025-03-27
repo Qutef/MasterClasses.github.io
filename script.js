@@ -24,6 +24,7 @@ function loadCategory(categoryId) {
 }
 
 function loadLesson(categoryId, lessonId) {
+    hideLesson ();
     const category = coursesData.find(c => c.id === categoryId);
     const lesson = category.lessons.find(l => l.id === lessonId);
 
@@ -92,6 +93,11 @@ function updateProgress() {
         progressDiv.appendChild(p);
     });
 }
+
+function hideLesson() {
+    document.getElementById("lesson-details").style.display = "none";
+}
+
 
 window.onload = async () => {
     await loadCourses();
