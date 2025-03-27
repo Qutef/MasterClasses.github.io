@@ -1,111 +1,99 @@
-let currentLesson = null;
-let currentStep = 0;
+let coursesData = {};
+let userProgress = JSON.parse(localStorage.getItem("progress")) || {};
 
-// Загружаем категории
-document.addEventListener("DOMContentLoaded", () => {
-    let categoryList = document.getElementById("category-list");
+async function loadCourses() {
+    try {
+        const response = await fetch("courses.json");
+        coursesData = (await response.json()).courses;
+    } catch (error) {
+        console.error("Ошибка загрузки курсов: ", error);
+    }
+}
 
-    Object.keys(lessonsData).forEach(category => {
-        let btn = document.createElement("button");
-        btn.textContent = category;
-        btn.onclick = () => showLessons(category);
-        categoryList.appendChild(btn);
-    });
+function loadCategory(categoryId) {
+    const category = coursesData.find(c => c.id === categoryId);
+    const lessonList = document.getElementById("lesson-list");
+    lessonList.innerHTML = `<h2>${category.name}</h2>`;
 
-    loadProgress();
-});
-
-// Показываем уроки выбранной категории
-function showLessons(category) {
-    document.getElementById("categories").classList.add("hidden");
-    document.getElementById("lessons").classList.remove("hidden");
-
-    let lessonList = document.getElementById("lesson-list");
-    lessonList.innerHTML = "";
-
-    lessonsData[category].forEach(lesson => {
+    category.lessons.forEach(lesson => {
         let btn = document.createElement("button");
         btn.textContent = lesson.title;
-        btn.onclick = () => startLesson(lesson);
+        btn.onclick = () => loadLesson(categoryId, lesson.id);
         lessonList.appendChild(btn);
     });
 }
 
-// Запускаем урок
-function startLesson(lesson) {
-    currentLesson = lesson;
-    currentStep = 0;
-
-    document.getElementById("lessons").classList.add("hidden");
-    document.getElementById("lesson-detail").classList.remove("hidden");
+function loadLesson(categoryId, lessonId) {
+    const category = coursesData.find(c => c.id === categoryId);
+    const lesson = category.lessons.find(l => l.id === lessonId);
 
     document.getElementById("lesson-title").textContent = lesson.title;
-    document.getElementById("equipment").textContent = lesson.equipment;
-    document.getElementById("video-source").src = lesson.video;
-    document.getElementById("video-player").load();
+    document.getElementById("lesson-video").src = lesson.video;
 
-    updateStep();
-}
+    let video = document.getElementById("lesson-video");
+    video.onerror = function() {
+        console.error(`Ошибка загрузки видео: ${lesson.video}`);
+        alert("Ошибка загрузки видео. Проверьте, что файл находится в папке /videos и имеет правильное имя.");
+    };
 
-// Показываем шаг
-function updateStep() {
-    document.getElementById("step-text").textContent = currentLesson.steps[currentStep];
-}
-
-// Следующий шаг
-function nextStep() {
-    if (currentStep < currentLesson.steps.length - 1) {
-        currentStep++;
-        updateStep();
-    }
-}
-
-// Предыдущий шаг
-function prevStep() {
-    if (currentStep > 0) {
-        currentStep--;
-        updateStep();
-    }
-}
-
-// Завершаем урок
-function completeLesson() {
-    let progress = JSON.parse(localStorage.getItem("progress")) || [];
-    if (!progress.includes(currentLesson.title)) {
-        progress.push(currentLesson.title);
-    } else {
-        progress = progress.filter(title => title !== currentLesson.title); // Убираем из пройденных
-    }
-    localStorage.setItem("progress", JSON.stringify(progress));
-    loadProgress();
-}
-
-// Загружаем прогресс
-function loadProgress() {
-    let progressList = document.getElementById("progress-list");
-    progressList.innerHTML = "";
-
-    let progress = JSON.parse(localStorage.getItem("progress")) || [];
-    progress.forEach(title => {
+    const equipList = document.getElementById("equipment-list");
+    equipList.innerHTML = "";
+    lesson.equipment.forEach(item => {
         let li = document.createElement("li");
-        li.textContent = title;
-        let removeBtn = document.createElement("button");
-        removeBtn.textContent = "❌";
-        removeBtn.onclick = () => removeFromProgress(title);
-        li.appendChild(removeBtn);
-        progressList.appendChild(li);
+        li.textContent = item;
+        equipList.appendChild(li);
+    });
+
+    const stepList = document.getElementById("lesson-steps");
+    stepList.innerHTML = "";
+    lesson.steps.forEach(step => {
+        let li = document.createElement("li");
+        li.textContent = step;
+        stepList.appendChild(li);
+    });
+
+    updateButtonState(lesson.title);
+    document.getElementById("lesson-details").style.display = "block";
+}
+
+function markAsCompleted() {
+    const title = document.getElementById("lesson-title").textContent;
+    
+    if (userProgress[title]) {
+        delete userProgress[title];  // Убираем из списка пройденных
+    } else {
+        userProgress[title] = true;  // Добавляем в пройденные
+    }
+
+    localStorage.setItem("progress", JSON.stringify(userProgress));
+    updateProgress();
+    updateButtonState(title);
+}
+
+function updateButtonState(title) {
+    const button = document.getElementById("mark-button");
+    
+    if (!button) return;
+
+    if (userProgress[title]) {
+        button.textContent = "Убрать из пройденного";
+    } else {
+        button.textContent = "Отметить как пройденное";
+    }
+}
+
+function updateProgress() {
+    const progressDiv = document.getElementById("progress");
+    progressDiv.innerHTML = "";
+
+    Object.keys(userProgress).forEach(title => {
+        let p = document.createElement("p");
+        p.textContent = `✔ ${title}`;
+        progressDiv.appendChild(p);
     });
 }
 
-// Убираем курс из пройденных
-function removeFromProgress(title) {
-    let progress = JSON.parse(localStorage.getItem("progress")) || [];
-    progress = progress.filter(item => item !== title);
-    localStorage.setItem("progress", JSON.stringify(progress));
-    loadProgress();
-}
-
-// Запрос ссылки на канал
-function requestChannelLink() {
-    alert("Напишите боту @YourBot в Telegram, чтобы получить ссылку на канал!");
-}
+window.onload = async () => {
+    await loadCourses();
+    updateProgress();
+};
