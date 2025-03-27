@@ -1,13 +1,14 @@
-/* Общие стили */
+/* --- Глобальные стили --- */
 body {
     font-family: 'Poppins', sans-serif;
-    background: #f0f2f5;
+    background: #f4f4f4;
     color: #333;
     margin: 0;
     padding: 0;
     transition: background 0.3s, color 0.3s;
 }
 
+/* --- Тёмная тема --- */
 .dark-mode {
     background: #181818;
     color: #f4f4f4;
@@ -23,97 +24,76 @@ body {
 }
 
 .dark-mode button {
-    background: linear-gradient(90deg, #ff9800, #ff8000);
-        
+    background: #ff9800;
 }
 
-/* Шапка */
+/* --- Заголовок --- */
 header {
-    background: linear-gradient(90deg, #007bff, #6610f2);
+    background: #007bff;
     color: white;
     padding: 20px;
     text-align: center;
     font-size: 24px;
     font-weight: bold;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: static;
-    top: 0;
-    z-index: 1000;
 }
 
-#theme-toggle {
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    float: right;
-    color: white;
-}
-
-/* Кнопки */
+/* --- Кнопки --- */
 button {
-    background: linear-gradient(90deg, #28a745, #218838);
+    background: #28a745;
     color: white;
-    padding: 12px 20px;
     border: none;
+    padding: 12px 20px;
+    margin: 10px;
+    font-size: 16px;
     border-radius: 25px;
     cursor: pointer;
-    transition: 0.3s;
-    font-size: 16px;
-    font-weight: bold;
+    transition: all 0.3s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
+    background: #218838;
     transform: scale(1.05);
 }
 
-/* Блок с категориями */
-#categories {
-    text-align: center;
-    margin-top: 20px;
+/* --- Темная тема кнопка --- */
+#theme-toggle {
+    background: #333;
+    color: white;
+    position: fixed;
+    top: 20px;
+    right: 20px;
 }
 
-/* Список уроков */
-#lesson-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 20px;
-}
-
+/* --- Карточки уроков --- */
 #lesson-list div {
     background: white;
     padding: 15px;
     margin: 10px;
-    border-radius: 12px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: 0.3s;
-    width: 200px;
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
 }
 
 #lesson-list div:hover {
-    transform: scale(1.1);
-    background: #007bff;
-    color: white;
+    transform: scale(1.05);
 }
 
-/* Детали урока */
+/* --- Контейнер урока --- */
 #lesson-details {
     background: white;
     padding: 20px;
     margin: 20px auto;
     max-width: 600px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: left;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* --- Видео --- */
 #lesson-video {
     width: 100%;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
