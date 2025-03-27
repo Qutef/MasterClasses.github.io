@@ -111,7 +111,8 @@ function hideLesson() {
 
 document.getElementById("theme-toggle").addEventListener("click", function() {
     document.body.classList.toggle("dark-mode");
-
+}) 
+    
 window.onload = async () => {
     await loadCourses();
     updateProgress();
