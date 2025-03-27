@@ -24,7 +24,7 @@ function loadCategory(categoryId) {
 }
 
 function loadLesson(categoryId, lessonId) {
-    hideLesson ();
+    hideLesson();
     const category = coursesData.find(c => c.id === categoryId);
     const lesson = category.lessons.find(l => l.id === lessonId);
 
