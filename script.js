@@ -31,6 +31,8 @@ function loadLesson(categoryId, lessonId) {
     document.getElementById("lesson-title").textContent = lesson.title;
     document.getElementById("lesson-video").src = lesson.video;
 
+    preloadVideo(lesson.video); 
+    
     let video = document.getElementById("lesson-video");
     video.onerror = function() {
         console.error(`Ошибка загрузки видео: ${lesson.video}`);
@@ -94,6 +96,15 @@ function updateProgress() {
     });
 }
 
+function preloadVideo(videoSrc) {
+    let video = document.createElement("video");
+    video.src = videoSrc;
+    video.preload = "auto";
+    document.body.appendChild(video);
+    video.style.display = "none"; 
+}
+
+
 function hideLesson() {
     document.getElementById("lesson-details").style.display = "none";
 }
@@ -102,4 +113,12 @@ function hideLesson() {
 window.onload = async () => {
     await loadCourses();
     updateProgress();
+
+    // Предзагружаем все видео из JSON
+    coursesData.courses.forEach(category => {
+        category.lessons.forEach(lesson => {
+            preloadVideo(lesson.video);
+        });
+    });
 };
+
