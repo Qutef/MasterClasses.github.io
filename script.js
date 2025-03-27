@@ -10,7 +10,7 @@ async function loadCourses() {
 function loadCategory(categoryId) {
     const category = coursesData.find(c => c.id === categoryId);
     const lessonList = document.getElementById("lesson-list");
-    lessonList.innerHTML = <h2>${category.name}</h2>;
+    lessonList.innerHTML = category.name;
 
     category.lessons.forEach(lesson => {
         let btn = document.createElement("button");
