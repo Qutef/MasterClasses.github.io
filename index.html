@@ -7,46 +7,40 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <header>
-        <h1>Мастер-классы</h1>
-        <button onclick="requestChannelLink()">📢 Получить ссылку на канал</button>
+        <h1>Выберите направление</h1>
     </header>
-
     <main>
+        <!-- Раздел выбора категории -->
         <section id="categories">
-            <h2>Выберите направление</h2>
-            <div id="category-list"></div>
+            <button onclick="loadCategory('photography')">Фотография</button>
+            <button onclick="loadCategory('cooking')">Кулинария</button>
         </section>
 
-        <section id="lessons" class="hidden">
-            <h2>Выберите урок</h2>
-            <div id="lesson-list"></div>
-        </section>
+        <!-- Раздел списка уроков -->
+        <section id="lesson-list"></section>
 
-        <section id="lesson-detail" class="hidden">
+        <!-- Раздел с деталями урока -->
+        <section id="lesson-details" style="display:none;">
             <h2 id="lesson-title"></h2>
-            <p><strong>Необходимое оборудование:</strong> <span id="equipment"></span></p>
-            <video id="video-player" controls>
-                <source id="video-source" src="" type="video/mp4">
-                Ваш браузер не поддерживает видео.
-            </video>
-            <div id="steps">
-                <h3>Шаги:</h3>
-                <p id="step-text"></p>
-                <button id="prev-step" onclick="prevStep()">⬅ Назад</button>
-                <button id="next-step" onclick="nextStep()">Вперёд ➡</button>
-            </div>
-            <button id="complete-lesson" onclick="completeLesson()">✅ Завершить урок</button>
+            
+            <h3>Оборудование</h3>
+            <ul id="equipment-list"></ul>
+
+            <video id="lesson-video" controls></video>
+
+            <h3>Шаги:</h3>
+            <ol id="lesson-steps"></ol>
+
+            <!-- Кнопки управления -->
+            <button id="mark-button" onclick="markAsCompleted()">Отметить как пройденное</button>
+            <button id="hide-button" onclick="hideLesson()">Скрыть урок</button>
         </section>
 
-        <section id="progress">
-            <h2>Ваш прогресс</h2>
-            <ul id="progress-list"></ul>
-        </section>
+        <!-- Прогресс пользователя -->
+        <h3>Прогресс:</h3>
+        <div id="progress"></div>
     </main>
-
-    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
