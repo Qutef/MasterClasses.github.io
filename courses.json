@@ -1,7 +1,7 @@
 {
   "courses": [
     {
-      "id": "cooking",
+      "id": "l1",
       "name": "Кулинария",
       "lessons": [
         {
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "id": "cooking",
+      "id": "l2",
       "name": "Кулинария",
       "lessons": [
         {
