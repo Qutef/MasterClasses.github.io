@@ -111,14 +111,6 @@ function hideLesson() {
 
 document.getElementById("theme-toggle").addEventListener("click", function() {
     document.body.classList.toggle("dark-mode");
-    if (document.body.classList.contains("dark-mode")) {
-            localStorage.setItem("theme", "dark");
-            themeToggle.textContent = "☀️"; // При тёмной теме показываем солнце
-        } else {
-            localStorage.setItem("theme", "light");
-            themeToggle.textContent = "🌙"; // При светлой теме показываем луну
-    }
-});
 
 window.onload = async () => {
     await loadCourses();
