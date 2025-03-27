@@ -2,12 +2,9 @@ let coursesData = {};
 let userProgress = JSON.parse(localStorage.getItem("progress")) || {};
 
 async function loadCourses() {
-    try {
         const response = await fetch("courses.json");
-        coursesData = (await response.json()).courses;
-    } catch (error) {
-        console.error("Ошибка загрузки курсов: ", error);
-    }
+        const data = await response.json();
+        coursesData = data.courses;
 }
 
 function loadCategory(categoryId) {
