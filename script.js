@@ -2,16 +2,18 @@ let coursesData = {};
 let userProgress = JSON.parse(localStorage.getItem("progress")) || {};
 
 async function loadCourses() {
+    try {
         const response = await fetch("courses.json");
-        const data = await response.json();
-        coursesData = data.courses;
+        coursesData = (await response.json()).courses;
+    } catch (error) {
+        console.error("Ошибка загрузки курсов: ", error);
+    }
 }
 
 function loadCategory(categoryId) {
-    hideLesson()
     const category = coursesData.find(c => c.id === categoryId);
     const lessonList = document.getElementById("lesson-list");
-    lessonList.innerHTML = `<h2>${category.name}</h2>`;
+    lessonList.innerHTML = <h2>${category.name}</h2>;
 
     category.lessons.forEach(lesson => {
         let btn = document.createElement("button");
@@ -22,6 +24,7 @@ function loadCategory(categoryId) {
 }
 
 function loadLesson(categoryId, lessonId) {
+    hideLesson()
     const category = coursesData.find(c => c.id === categoryId);
     const lesson = category.lessons.find(l => l.id === lessonId);
 
@@ -30,7 +33,7 @@ function loadLesson(categoryId, lessonId) {
     
     let video = document.getElementById("lesson-video");
     video.onerror = function() {
-        console.error(`Ошибка загрузки видео: ${lesson.video}`);
+        console.error(Ошибка загрузки видео: ${lesson.video});
         alert("Ошибка загрузки видео. Проверьте, что файл находится в папке /videos и имеет правильное имя.");
     };
 
@@ -48,12 +51,10 @@ function loadLesson(categoryId, lessonId) {
         let li = document.createElement("li");
         li.textContent = step;
         stepList.appendChild(li);
-        
     });
 
-   updateButtonState(lesson.title);
+    updateButtonState(lesson.title);
     document.getElementById("lesson-details").style.display = "block";
-
 }
 
 function markAsCompleted() {
@@ -88,11 +89,10 @@ function updateProgress() {
 
     Object.keys(userProgress).forEach(title => {
         let p = document.createElement("p");
-        p.textContent = `✔ ${title}`;
+        p.textContent = ✔ ${title};
         progressDiv.appendChild(p);
     });
 }
-
 function preloadVideo(videoSrc) {
     let video = document.createElement("video");
     video.src = videoSrc;
