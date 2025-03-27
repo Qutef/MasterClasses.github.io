@@ -3,39 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Видео-уроки</title>
+    <title>Мастер-классы</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <header>
         Видео-уроки
         <button id="theme-toggle">🌙</button>
     </header>
+    <header>
+        <h1>Выберите направление</h1>
+    </header>
+    <main>
+        <section id="categories">
+            <button onclick="loadCategory('photography')">Фотография</button>
+            <button onclick="loadCategory('cooking')">Кулинария</button>
+        </section>
 
-    <div id="categories">
-        <button onclick="loadCategory('cooking')">Кулинария</button>
-        <button onclick="loadCategory('art')">Рисование</button>
-    </div>
+        <section id="lesson-list"></section>
 
-    <div id="lesson-list"></div>
+        <section id="lesson-details" style="display:none;">
+            <h2 id="lesson-title"></h2>
+            
+            <h3>Оборудование</h3>
+            <ul id="equipment-list"></ul>
 
-    <div id="lesson-details">
-        <h2 id="lesson-title"></h2>
-        <video id="lesson-video" controls></video>
-        
+            <video id="lesson-video" controls></video>
+
+            <h3>Шаги:</h3>
+            <ol id="lesson-steps"></ol>
+
+            <button id="mark-button" onclick="markAsCompleted()">Отметить как пройденное</button>
+        </section>
+
         <h3>Прогресс:</h3>
-        <div id="progress-bar"><div id="progress-bar-inner"></div></div>
-
-        <h3>Шаги урока:</h3>
-        <ol id="lesson-steps"></ol>
-
-        <h3>Комментарии:</h3>
-        <input type="text" id="comment-input" placeholder="Оставьте комментарий...">
-        <button onclick="addComment()">Добавить</button>
-        <div id="comments"></div>
-    </div>
-
+        <div id="progress"></div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
