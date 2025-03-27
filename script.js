@@ -24,7 +24,6 @@ function loadCategory(categoryId) {
 }
 
 function loadLesson(categoryId, lessonId) {
-    hideLesson()
     const category = coursesData.find(c => c.id === categoryId);
     const lesson = category.lessons.find(l => l.id === lessonId);
 
@@ -93,25 +92,8 @@ function updateProgress() {
         progressDiv.appendChild(p);
     });
 }
-function preloadVideo(videoSrc) {
-    let video = document.createElement("video");
-    video.src = videoSrc;
-    video.preload = "auto";
-    document.body.appendChild(video);
-    video.style.display = "none"; 
-}
 
-
-function hideLesson() {
-    document.getElementById("lesson-details").style.display = "none";
-}
-
-document.getElementById("theme-toggle").addEventListener("click", function() {
-    document.body.classList.toggle("dark-mode");
-}) 
-    
 window.onload = async () => {
     await loadCourses();
     updateProgress();
-    preloadVideo(lesson.video);
 };
