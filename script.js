@@ -68,17 +68,18 @@ function prevStep() {
     }
 }
 
-// Завершаем урок
+// Завершаем урок и сохраняем прогресс в localStorage
 function completeLesson() {
     let progress = JSON.parse(localStorage.getItem("progress")) || [];
     if (!progress.includes(currentLesson.title)) {
         progress.push(currentLesson.title);
         localStorage.setItem("progress", JSON.stringify(progress));
     }
+    alert("Урок завершен!");
     loadProgress();
 }
 
-// Загружаем прогресс
+// Загружаем прогресс пользователя
 function loadProgress() {
     let progressList = document.getElementById("progress-list");
     progressList.innerHTML = "";
@@ -91,7 +92,7 @@ function loadProgress() {
     });
 }
 
-// Запрос ссылки на канал
+// Показываем ссылку на канал
 function requestChannelLink() {
-    alert("Напишите боту @YourBot в Telegram, чтобы получить ссылку на канал!");
+    alert("Ссылка на канал: https://t.me/your_channel");
 }
