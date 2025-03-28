@@ -11,6 +11,7 @@ async function loadCourses() {
 }
 
 function loadCategory(categoryId) {
+    hideLesson();
     const category = coursesData.find(c => c.id === categoryId);
     const lessonList = document.getElementById("lesson-list");
     lessonList.innerHTML = `<h2>${category.name}</h2>`;
@@ -24,7 +25,7 @@ function loadCategory(categoryId) {
 }
 
 function loadLesson(categoryId, lessonId) {
-    hideLesson();
+    
     const category = coursesData.find(c => c.id === categoryId);
     const lesson = category.lessons.find(l => l.id === lessonId);
 
