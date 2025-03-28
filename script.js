@@ -1,5 +1,5 @@
 let coursesData = {};
-let userProgress = JSON.parse(localStorage.getItem("progress")) || {};
+let userProgress = {};
 
 async function loadCourses() {
     try {
